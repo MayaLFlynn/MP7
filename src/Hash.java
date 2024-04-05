@@ -1,14 +1,23 @@
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 /**
  * This class does something with Hashs, I don't know
  * 
  * @author Alyssa Trapp
  * @author Maya Flynn
  * 
+ * calculateHash was given by Sam R
  */
 
 public class Hash {
 
-
+public static byte[] calculateHash(String msg) throws NoSuchAlgorithmException {
+    MessageDigest md = MessageDigest.getInstance("sha-256");
+    md.update(msg.getBytes());
+    byte[] hash = md.digest();
+    return hash;
+} // calculateHash(String)
 
   //FIELDS
   byte[] hash; //This might be horribly wrong
