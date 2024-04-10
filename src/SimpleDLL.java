@@ -7,6 +7,13 @@ import java.util.NoSuchElementException;
  * Simple doubly-linked lists.
  *
  * These do *not* (yet) support the Fail Fast policy.
+ * 
+ * @author Sam Rebelsky
+ * @author Alyssa Trapp
+ * @author Maya Flynn
+ * 
+ *         Provided in the linked list lab Implementation of previous() and remove() provided by
+ *         Maya and Alyssa
  */
 public class SimpleDLL<T> implements SimpleList<T> {
   // +--------+------------------------------------------------------------
@@ -50,22 +57,20 @@ public class SimpleDLL<T> implements SimpleList<T> {
       // +--------+
 
       /**
-       * The position in the list of the next value to be returned.
-       * Included because ListIterators must provide nextIndex and
-       * prevIndex.
+       * The position in the list of the next value to be returned. Included because ListIterators
+       * must provide nextIndex and prevIndex.
        */
       int pos = 0;
 
       /**
-       * The cursor is between neighboring values, so we start links
-       * to the previous and next value..
+       * The cursor is between neighboring values, so we start links to the previous and next
+       * value..
        */
       Node2<T> prev = null;
       Node2<T> next = SimpleDLL.this.front;
 
       /**
-       * The node to be updated by remove or set.  Has a value of
-       * null when there is no such value.
+       * The node to be updated by remove or set. Has a value of null when there is no such value.
        */
       Node2<T> update = null;
 
@@ -73,12 +78,9 @@ public class SimpleDLL<T> implements SimpleList<T> {
       // | Methods |
       // +---------+
 
-      public void firstPos() {
-        this.pos = 0;
-        this.prev = null;
-        this.next = front.next;
-      } // firstPost
-
+      /**
+       * Adds an element at the postition given by update
+       */
       public void add(T val) {
         // Special case: The list is empty)
         if (SimpleDLL.this.front == null) {
@@ -101,22 +103,31 @@ public class SimpleDLL<T> implements SimpleList<T> {
         // Increase the size
         ++SimpleDLL.this.size;
 
-        // Update the position.  (See SimpleArrayList.java for more of
+        // Update the position. (See SimpleArrayList.java for more of
         // an explanation.)
         ++this.pos;
       } // add(T)
 
+      /**
+       * Returns true if there is a next element in the array
+       */
       public boolean hasNext() {
         return (this.pos < SimpleDLL.this.size);
       } // hasNext()
 
+      /**
+       * Returns true if there is a previous element in the array
+       */
       public boolean hasPrevious() {
         return (this.pos > 0);
       } // hasPrevious()
 
+      /**
+       * Moves the iterator forward through the list
+       */
       public T next() {
         if (!this.hasNext()) {
-         throw new NoSuchElementException();
+          throw new NoSuchElementException();
         } // if
         // Identify the node to update
         this.update = this.next;
@@ -129,25 +140,37 @@ public class SimpleDLL<T> implements SimpleList<T> {
         return this.update.value;
       } // next()
 
+      /**
+       * Returns the index of the next element in the list
+       */
       public int nextIndex() {
         return this.pos;
       } // nextIndex()
 
+      /**
+       * Returns the index of the previous element in the list
+       */
       public int previousIndex() {
         return this.pos - 1;
       } // prevIndex
 
+      /**
+       * Moves the iterator back through the list
+       */
       public T previous() throws NoSuchElementException {
         if (!this.hasPrevious()) {
           throw new NoSuchElementException();
         }
-          this.next = this.prev;
-          this.prev = this.prev.prev;
-          pos--;
+        this.next = this.prev;
+        this.prev = this.prev.prev;
+        this.update = this.next;
+        pos--;
         return this.next.value;
-        
       } // previous()
 
+      /**
+       * Removes the element at the position of update in the list
+       */
       public void remove() {
         // Sanity check
         if (this.update == null) {
@@ -176,6 +199,9 @@ public class SimpleDLL<T> implements SimpleList<T> {
         this.update = null;
       } // remove()
 
+      /**
+       * Sets the value of update to val
+       */
       public void set(T val) {
         // Sanity check
         if (this.update == null) {
