@@ -1,5 +1,3 @@
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 /**
@@ -26,16 +24,6 @@ public class Hash {
   public Hash(byte[] data) {
     this.hasharr = data;
   } // Hash(byte[])
-
-/*
- * Calculates the hash 
- */
-  public static byte[] calculateHash(String msg) throws NoSuchAlgorithmException {
-    MessageDigest md = MessageDigest.getInstance("sha-256");
-    md.update(msg.getBytes());
-    byte[] hash = md.digest();
-    return hash;
-  } // calculateHash(String)
 
 
 //METHODS
@@ -73,7 +61,7 @@ public class Hash {
     } //toString()
 
    /*
-    * Checks to see if object is a Hash type or not 
+    * Checks to see if an Object is equal to the hash. 
     */
   public boolean equals(Object other) {
     if (other instanceof Hash == false){
