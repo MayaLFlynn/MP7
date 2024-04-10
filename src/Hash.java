@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import javax.swing.border.StrokeBorder;
 
 /**
  * The hash class calculates an identifier which is used to compare objects. 
@@ -51,13 +52,15 @@ public class Hash {
   public String toString() {
     // stores temparr
     String [] temparr = new String[hasharr.length];
+    StringBuilder toReturn = new StringBuilder();
     // loops for hasharr length
     for(int i = 0; i < hasharr.length; i++){
     // converts the bytes at the temp arr index to string
        temparr[i] = String.format ("%x", Byte.toUnsignedInt(hasharr[i]));
+       toReturn.append(temparr[i]);
     } // for
     // returns entire array as a string
-    return temparr.toString();
+    return toReturn.toString();
     } //toString()
 
    /*
@@ -71,3 +74,4 @@ public class Hash {
       return (Arrays.equals (temphash.getData(), this.getData()));
   } // equals (Object)
 } // class Hash
+ 

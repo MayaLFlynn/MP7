@@ -25,7 +25,7 @@ public class Block {
         // generates a random long
         long randNonce = rand.nextLong();
         // generates a random hash based on the random nonce
-        Hash tempHash = calculateHash(randNonce);
+        Hash tempHash = calculateHash(randNonce);  
         // if it's a valid hash, set nonce to randNonce and curHash to tempHash
         // if not, keep looping until you do get a valid hash
         if (tempHash.isValid()) {
@@ -53,7 +53,7 @@ public class Block {
   } // Block(int, int, Hash, long)
 
   /*
-   * Calculates the hash
+   * Calculates the hash  
    */
   public Hash calculateHash(long nonce) throws NoSuchAlgorithmException {
     // creates a message digest object
